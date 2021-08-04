@@ -13,6 +13,7 @@
 
 #include "message_gate_impl.h"
 #include <gnuradio/io_signature.h>
+#include <functional>
 
 namespace gr {
 namespace pdu_utils {
@@ -33,7 +34,7 @@ message_gate_impl::message_gate_impl(bool enabled)
 {
     message_port_register_in(PMTCONSTSTR__in());
     set_msg_handler(PMTCONSTSTR__in(),
-                    boost::bind(&message_gate_impl::handle_msg, this, _1));
+                    boost::bind(&message_gate_impl::handle_msg, this, std::placeholders::_1));
     message_port_register_out(PMTCONSTSTR__out());
 }
 

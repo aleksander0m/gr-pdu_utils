@@ -14,6 +14,7 @@
 #include "pdu_downsample_impl.h"
 #include "pdu_utils/constants.h"
 #include <gnuradio/io_signature.h>
+#include <functional>
 
 namespace gr {
 namespace pdu_utils {
@@ -38,7 +39,7 @@ pdu_downsample_impl::pdu_downsample_impl(int decimation, int phase)
     message_port_register_in( PMTCONSTSTR__pdu_in() );
     message_port_register_out( PMTCONSTSTR__pdu_out() );
     set_msg_handler( PMTCONSTSTR__pdu_in(),
-                    boost::bind(&pdu_downsample_impl::handle_msg, this, _1));
+                    boost::bind(&pdu_downsample_impl::handle_msg, this, std::placeholders::_1));
 }
 
 /*

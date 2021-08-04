@@ -13,6 +13,7 @@
 
 #include "pdu_set_m_impl.h"
 #include <gnuradio/io_signature.h>
+#include <functional>
 
 namespace gr {
 namespace pdu_utils {
@@ -32,10 +33,10 @@ pdu_set_m_impl::pdu_set_m_impl(pmt::pmt_t k, pmt::pmt_t v)
 {
     message_port_register_in(PMTCONSTSTR__pdu_in());
     set_msg_handler(PMTCONSTSTR__pdu_in(),
-                    boost::bind(&pdu_set_m_impl::handle_msg, this, _1));
+                    boost::bind(&pdu_set_m_impl::handle_msg, this, std::placeholders::_1));
     message_port_register_in(PMTCONSTSTR__ctrl());
     set_msg_handler(PMTCONSTSTR__ctrl(),
-                    boost::bind(&pdu_set_m_impl::handle_ctrl_msg, this, _1));
+                    boost::bind(&pdu_set_m_impl::handle_ctrl_msg, this, std::placeholders::_1));
     message_port_register_out(PMTCONSTSTR__pdu_out());
 }
 

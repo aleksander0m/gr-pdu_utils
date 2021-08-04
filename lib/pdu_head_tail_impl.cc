@@ -13,6 +13,7 @@
 
 #include "pdu_head_tail_impl.h"
 #include <gnuradio/io_signature.h>
+#include <functional>
 
 namespace gr {
 namespace pdu_utils {
@@ -58,7 +59,7 @@ pdu_head_tail_impl::pdu_head_tail_impl(uint32_t input_type,
 
     message_port_register_in(PMTCONSTSTR__pdu_in());
     set_msg_handler(PMTCONSTSTR__pdu_in(),
-                    boost::bind(&pdu_head_tail_impl::handle_pdu, this, _1));
+                    boost::bind(&pdu_head_tail_impl::handle_pdu, this, std::placeholders::_1));
     message_port_register_out(PMTCONSTSTR__head());
     message_port_register_out(PMTCONSTSTR__tail());
 

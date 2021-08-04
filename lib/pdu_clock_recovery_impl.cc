@@ -16,6 +16,7 @@
 #include <volk/volk.h>
 
 #include <algorithm>
+#include <functional>
 
 namespace gr {
 namespace pdu_utils {
@@ -72,7 +73,7 @@ pdu_clock_recovery_impl::pdu_clock_recovery_impl(bool binary_slice,
     }
 
     set_msg_handler(PMTCONSTSTR__pdu_in(),
-                    boost::bind(&pdu_clock_recovery_impl::pdu_handler, this, _1));
+                    boost::bind(&pdu_clock_recovery_impl::pdu_handler, this, std::placeholders::_1));
 
     init_fast_sinc();
     fft_setup(15);

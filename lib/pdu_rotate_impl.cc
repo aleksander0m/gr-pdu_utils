@@ -25,6 +25,7 @@
 #include <gnuradio/io_signature.h>
 #include "pdu_rotate_impl.h"
 #include "pdu_utils/constants.h"
+#include <functional>
 
 namespace gr {
   namespace pdu_utils {
@@ -51,7 +52,7 @@ namespace gr {
     message_port_register_in(PMTCONSTSTR__pdu_in());
     set_msg_handler(
         PMTCONSTSTR__pdu_in(),
-        boost::bind(&pdu_rotate_impl::msg_handler, this, _1));
+        boost::bind(&pdu_rotate_impl::msg_handler, this, std::placeholders::_1));
     message_port_register_out(PMTCONSTSTR__pdu_out());
     }
 
@@ -124,4 +125,3 @@ namespace gr {
 
   } /* namespace pdu_utils */
 } /* namespace gr */
-

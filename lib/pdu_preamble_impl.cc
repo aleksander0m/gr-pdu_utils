@@ -13,6 +13,7 @@
 
 #include "pdu_preamble_impl.h"
 #include <gnuradio/io_signature.h>
+#include <functional>
 
 namespace gr {
 namespace pdu_utils {
@@ -62,7 +63,7 @@ pdu_preamble_impl::pdu_preamble_impl(const std::vector<uint8_t> preamble,
 
     message_port_register_in(PMTCONSTSTR__pdu_in());
     set_msg_handler(PMTCONSTSTR__pdu_in(),
-                    boost::bind(&pdu_preamble_impl::handle_msg, this, _1));
+                    boost::bind(&pdu_preamble_impl::handle_msg, this, std::placeholders::_1));
     message_port_register_out(PMTCONSTSTR__pdu_out());
 } // end constructor
 

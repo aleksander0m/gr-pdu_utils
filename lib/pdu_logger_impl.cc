@@ -14,6 +14,7 @@
 #include "pdu_logger_impl.h"
 #include <gnuradio/io_signature.h>
 #include <cerrno>
+#include <functional>
 
 namespace gr {
 namespace pdu_utils {
@@ -34,7 +35,7 @@ pdu_logger_impl::pdu_logger_impl(std::string logfile)
 {
     message_port_register_in(PMTCONSTSTR__pdu_in());
     set_msg_handler(PMTCONSTSTR__pdu_in(),
-                    boost::bind(&pdu_logger_impl::handle_pdu, this, _1));
+                    boost::bind(&pdu_logger_impl::handle_pdu, this, std::placeholders::_1));
 }
 
 /*

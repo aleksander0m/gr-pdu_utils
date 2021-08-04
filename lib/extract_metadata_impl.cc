@@ -13,6 +13,7 @@
 
 #include "extract_metadata_impl.h"
 #include <gnuradio/io_signature.h>
+#include <functional>
 
 namespace gr {
 namespace pdu_utils {
@@ -34,7 +35,7 @@ extract_metadata_impl::extract_metadata_impl(pmt::pmt_t key, float scale, float 
 {
     message_port_register_in(PMTCONSTSTR__dict());
     set_msg_handler(PMTCONSTSTR__dict(),
-                    boost::bind(&extract_metadata_impl::handle_msg, this, _1));
+                    boost::bind(&extract_metadata_impl::handle_msg, this, std::placeholders::_1));
     message_port_register_out(PMTCONSTSTR__msg());
 }
 

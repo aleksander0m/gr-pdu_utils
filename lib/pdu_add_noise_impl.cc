@@ -13,6 +13,7 @@
 
 #include "pdu_add_noise_impl.h"
 #include <gnuradio/io_signature.h>
+#include <functional>
 
 namespace gr {
 namespace pdu_utils {
@@ -39,7 +40,7 @@ pdu_add_noise_impl::pdu_add_noise_impl(
     set_noise_level(noise_level);
     message_port_register_in(PMTCONSTSTR__pdu_in());
     set_msg_handler(PMTCONSTSTR__pdu_in(),
-                    boost::bind(&pdu_add_noise_impl::handle_msg, this, _1));
+                    boost::bind(&pdu_add_noise_impl::handle_msg, this, std::placeholders::_1));
     message_port_register_out(PMTCONSTSTR__pdu_out());
 }
 

@@ -13,6 +13,7 @@
 
 #include "message_keep_1_in_n_impl.h"
 #include <gnuradio/io_signature.h>
+#include <functional>
 
 namespace gr {
 namespace pdu_utils {
@@ -39,7 +40,7 @@ message_keep_1_in_n_impl::message_keep_1_in_n_impl(uint32_t n)
 
     message_port_register_in(PMTCONSTSTR__in());
     set_msg_handler(PMTCONSTSTR__in(),
-                    boost::bind(&message_keep_1_in_n_impl::handle_msg, this, _1));
+                    boost::bind(&message_keep_1_in_n_impl::handle_msg, this, std::placeholders::_1));
     message_port_register_out(PMTCONSTSTR__out());
 }
 

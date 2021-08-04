@@ -13,6 +13,7 @@
 
 #include "message_emitter_impl.h"
 #include <gnuradio/io_signature.h>
+#include <functional>
 
 namespace gr {
 namespace pdu_utils {
@@ -33,7 +34,7 @@ message_emitter_impl::message_emitter_impl(pmt::pmt_t msg)
 {
     message_port_register_in(PMTCONSTSTR__emit());
     set_msg_handler(PMTCONSTSTR__emit(),
-                    boost::bind(&message_emitter_impl::emit, this, _1));
+                    boost::bind(&message_emitter_impl::emit, this, std::placeholders::_1));
     message_port_register_out(PMTCONSTSTR__msg());
 }
 
@@ -49,7 +50,7 @@ message_emitter_impl::~message_emitter_impl() {}
 bool message_emitter_impl::stop()
 {
     GR_LOG_INFO(d_logger, boost::format("Message emitter sent %d messages") % d_n_msgs);
-    
+
     return true;
 }
 

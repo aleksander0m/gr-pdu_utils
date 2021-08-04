@@ -13,6 +13,7 @@
 
 #include "message_counter_impl.h"
 #include <gnuradio/io_signature.h>
+#include <functional>
 
 namespace gr {
 namespace pdu_utils {
@@ -35,7 +36,7 @@ message_counter_impl::message_counter_impl(std::string name)
 {
     message_port_register_in(PMTCONSTSTR__msg());
     set_msg_handler(PMTCONSTSTR__msg(),
-                    boost::bind(&message_counter_impl::handle_msg, this, _1));
+                    boost::bind(&message_counter_impl::handle_msg, this, std::placeholders::_1));
 }
 
 /**

@@ -13,6 +13,7 @@
 
 #include "tag_message_trigger_impl.h"
 #include <gnuradio/io_signature.h>
+#include <functional>
 
 namespace gr {
 namespace pdu_utils {
@@ -89,7 +90,7 @@ tag_message_trigger_impl<T>::tag_message_trigger_impl(pmt::pmt_t trigger_key,
     this->message_port_register_in(PMTCONSTSTR__ctrl());
     this->set_msg_handler(
         PMTCONSTSTR__ctrl(),
-        boost::bind(&tag_message_trigger_impl<T>::control_input, this, _1));
+        boost::bind(&tag_message_trigger_impl<T>::control_input, this, std::placeholders::_1));
     this->message_port_register_out(PMTCONSTSTR__msg());
 }
 

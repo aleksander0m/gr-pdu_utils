@@ -17,7 +17,7 @@
 
 #include <gnuradio/blocks/pdu.h>
 #include <cmath>
-
+#include <functional>
 
 namespace gr {
 namespace pdu_utils {
@@ -40,7 +40,7 @@ pdu_burst_combiner_impl::pdu_burst_combiner_impl()
 
     message_port_register_in(PMTCONSTSTR__pdu_in());
     set_msg_handler(PMTCONSTSTR__pdu_in(),
-                    boost::bind(&pdu_burst_combiner_impl::handle_pdu, this, _1));
+                    boost::bind(&pdu_burst_combiner_impl::handle_pdu, this, std::placeholders::_1));
     message_port_register_out(PMTCONSTSTR__pdu_out());
 }
 

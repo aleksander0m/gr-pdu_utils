@@ -17,6 +17,7 @@
 
 #include <inttypes.h>
 #include <volk/volk.h>
+#include <functional>
 
 namespace gr {
 namespace pdu_utils {
@@ -38,7 +39,7 @@ pdu_quadrature_demod_cf_impl::pdu_quadrature_demod_cf_impl(float sensitivity)
     message_port_register_in(PMTCONSTSTR__cpdus());
     message_port_register_out(PMTCONSTSTR__fpdus());
     set_msg_handler(PMTCONSTSTR__cpdus(),
-                    boost::bind(&pdu_quadrature_demod_cf_impl::handle_pdu, this, _1));
+                    boost::bind(&pdu_quadrature_demod_cf_impl::handle_pdu, this, std::placeholders::_1));
 }
 
 /*

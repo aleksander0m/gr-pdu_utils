@@ -17,6 +17,7 @@
 #include <gnuradio/blocks/pdu.h>
 #include <gnuradio/fxpt.h>
 #include <cmath>
+#include <functional>
 
 
 namespace gr {
@@ -50,7 +51,7 @@ pdu_gmsk_fc_impl::pdu_gmsk_fc_impl(float sensitivity, const std::vector<float> t
 
     message_port_register_in(PMTCONSTSTR__pdu_in());
     set_msg_handler(PMTCONSTSTR__pdu_in(),
-                    boost::bind(&pdu_gmsk_fc_impl::handle_pdu, this, _1));
+                    boost::bind(&pdu_gmsk_fc_impl::handle_pdu, this, std::placeholders::_1));
     message_port_register_out(PMTCONSTSTR__pdu_out());
 }
 

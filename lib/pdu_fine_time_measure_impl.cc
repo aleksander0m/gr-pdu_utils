@@ -14,6 +14,7 @@
 #include "pdu_fine_time_measure_impl.h"
 #include <gnuradio/io_signature.h>
 #include <volk/volk.h>
+#include <functional>
 
 namespace gr {
 namespace pdu_utils {
@@ -45,7 +46,7 @@ pdu_fine_time_measure_impl::pdu_fine_time_measure_impl(float pre_burst_time,
     message_port_register_in(PMTCONSTSTR__pdu_in());
     message_port_register_out(PMTCONSTSTR__pdu_out());
     set_msg_handler(PMTCONSTSTR__pdu_in(),
-                    boost::bind(&pdu_fine_time_measure_impl::pdu_handler, this, _1));
+                    boost::bind(&pdu_fine_time_measure_impl::pdu_handler, this, std::placeholders::_1));
 }
 
 /*

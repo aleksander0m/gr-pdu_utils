@@ -14,6 +14,7 @@
 #include "pdu_fir_filter_impl.h"
 #include "volk/volk.h"
 #include <gnuradio/io_signature.h>
+#include <functional>
 
 namespace gr {
 namespace pdu_utils {
@@ -43,7 +44,7 @@ pdu_fir_filter_impl::pdu_fir_filter_impl(int decimation, const std::vector<float
     message_port_register_in(PMTCONSTSTR__pdu_in());
     message_port_register_out(PMTCONSTSTR__pdu_out());
     set_msg_handler(PMTCONSTSTR__pdu_in(),
-                    boost::bind(&pdu_fir_filter_impl::handle_pdu, this, _1));
+                    boost::bind(&pdu_fir_filter_impl::handle_pdu, this, std::placeholders::_1));
 }
 
 /*

@@ -15,6 +15,7 @@
 #include "pdu_pfb_resamp_impl.h"
 #include <gnuradio/io_signature.h>
 #include <volk/volk.h>
+#include <functional>
 
 namespace gr {
 namespace pdu_utils {
@@ -53,7 +54,7 @@ pdu_pfb_resamp_impl<T, S>::pdu_pfb_resamp_impl(const std::vector<S> taps,
 
     this->message_port_register_in(PMTCONSTSTR__pdu_in());
     this->set_msg_handler(PMTCONSTSTR__pdu_in(),
-                          boost::bind(&pdu_pfb_resamp_impl<T, S>::handle_pdu, this, _1));
+                          boost::bind(&pdu_pfb_resamp_impl<T, S>::handle_pdu, this, std::placeholders::_1));
     this->message_port_register_out(PMTCONSTSTR__pdu_out());
 }
 
@@ -163,12 +164,12 @@ pfb_filter_kernel<float, float>::pfb_filter_kernel(std::vector<float> ktaps,
     group_delay =
         boost::bind(&gr::filter::kernel::pfb_arb_resampler_fff::group_delay, d_pfb_fff);
     set_taps =
-        boost::bind(&gr::filter::kernel::pfb_arb_resampler_fff::set_taps, d_pfb_fff, _1);
+        boost::bind(&gr::filter::kernel::pfb_arb_resampler_fff::set_taps, d_pfb_fff, std::placeholders::_1);
     taps = boost::bind(&gr::filter::kernel::pfb_arb_resampler_fff::taps, d_pfb_fff);
     set_rate =
-        boost::bind(&gr::filter::kernel::pfb_arb_resampler_fff::set_rate, d_pfb_fff, _1);
+        boost::bind(&gr::filter::kernel::pfb_arb_resampler_fff::set_rate, d_pfb_fff, std::placeholders::_1);
     filter = boost::bind(
-        &gr::filter::kernel::pfb_arb_resampler_fff::filter, d_pfb_fff, _1, _2, _3, _4);
+        &gr::filter::kernel::pfb_arb_resampler_fff::filter, d_pfb_fff, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
 }
 
 template <>
@@ -181,12 +182,12 @@ pfb_filter_kernel<gr_complex, float>::pfb_filter_kernel(std::vector<float> ktaps
     group_delay =
         boost::bind(&gr::filter::kernel::pfb_arb_resampler_ccf::group_delay, d_pfb_ccf);
     set_taps =
-        boost::bind(&gr::filter::kernel::pfb_arb_resampler_ccf::set_taps, d_pfb_ccf, _1);
+        boost::bind(&gr::filter::kernel::pfb_arb_resampler_ccf::set_taps, d_pfb_ccf, std::placeholders::_1);
     taps = boost::bind(&gr::filter::kernel::pfb_arb_resampler_ccf::taps, d_pfb_ccf);
     set_rate =
-        boost::bind(&gr::filter::kernel::pfb_arb_resampler_ccf::set_rate, d_pfb_ccf, _1);
+        boost::bind(&gr::filter::kernel::pfb_arb_resampler_ccf::set_rate, d_pfb_ccf, std::placeholders::_1);
     filter = boost::bind(
-        &gr::filter::kernel::pfb_arb_resampler_ccf::filter, d_pfb_ccf, _1, _2, _3, _4);
+        &gr::filter::kernel::pfb_arb_resampler_ccf::filter, d_pfb_ccf, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
 }
 
 template <>
@@ -200,12 +201,12 @@ pfb_filter_kernel<gr_complex, gr_complex>::pfb_filter_kernel(
     group_delay =
         boost::bind(&gr::filter::kernel::pfb_arb_resampler_ccc::group_delay, d_pfb_ccc);
     set_taps =
-        boost::bind(&gr::filter::kernel::pfb_arb_resampler_ccc::set_taps, d_pfb_ccc, _1);
+        boost::bind(&gr::filter::kernel::pfb_arb_resampler_ccc::set_taps, d_pfb_ccc, std::placeholders::_1);
     taps = boost::bind(&gr::filter::kernel::pfb_arb_resampler_ccc::taps, d_pfb_ccc);
     set_rate =
-        boost::bind(&gr::filter::kernel::pfb_arb_resampler_ccc::set_rate, d_pfb_ccc, _1);
+        boost::bind(&gr::filter::kernel::pfb_arb_resampler_ccc::set_rate, d_pfb_ccc, std::placeholders::_1);
     filter = boost::bind(
-        &gr::filter::kernel::pfb_arb_resampler_ccc::filter, d_pfb_ccc, _1, _2, _3, _4);
+        &gr::filter::kernel::pfb_arb_resampler_ccc::filter, d_pfb_ccc, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
 }
 
 // only support float and gr_complex

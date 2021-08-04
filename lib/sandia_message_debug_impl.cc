@@ -13,6 +13,7 @@
 
 #include "sandia_message_debug_impl.h"
 #include <gnuradio/io_signature.h>
+#include <functional>
 
 namespace gr {
 namespace pdu_utils {
@@ -32,15 +33,15 @@ sandia_message_debug_impl::sandia_message_debug_impl()
 {
     message_port_register_in(pmt::mp("print"));
     set_msg_handler(pmt::mp("print"),
-                    boost::bind(&sandia_message_debug_impl::print, this, _1));
+                    boost::bind(&sandia_message_debug_impl::print, this, std::placeholders::_1));
 
     message_port_register_in(pmt::mp("store"));
     set_msg_handler(pmt::mp("store"),
-                    boost::bind(&sandia_message_debug_impl::store, this, _1));
+                    boost::bind(&sandia_message_debug_impl::store, this, std::placeholders::_1));
 
     message_port_register_in(pmt::mp("print_pdu"));
     set_msg_handler(pmt::mp("print_pdu"),
-                    boost::bind(&sandia_message_debug_impl::print_pdu, this, _1));
+                    boost::bind(&sandia_message_debug_impl::print_pdu, this, std::placeholders::_1));
 }
 
 /*

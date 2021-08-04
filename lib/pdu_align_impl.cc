@@ -15,6 +15,7 @@
 #include <gnuradio/io_signature.h>
 #include <pdu_utils/constants.h>
 #include <volk/volk.h>
+#include <functional>
 
 namespace gr {
 namespace pdu_utils {
@@ -82,7 +83,7 @@ pdu_align_impl::pdu_align_impl(std::string syncwords,
     message_port_register_in(PMTCONSTSTR__pdu_in());
     message_port_register_out(PMTCONSTSTR__pdu_out());
     set_msg_handler(PMTCONSTSTR__pdu_in(),
-                    boost::bind(&pdu_align_impl::pdu_handler, this, _1));
+                    boost::bind(&pdu_align_impl::pdu_handler, this, std::placeholders::_1));
 }
 
 /*

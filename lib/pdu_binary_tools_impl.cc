@@ -14,6 +14,7 @@
 #include "pdu_binary_tools_impl.h"
 #include "pdu_utils/constants.h"
 #include <gnuradio/io_signature.h>
+#include <functional>
 
 namespace gr {
 namespace pdu_utils {
@@ -48,53 +49,53 @@ pdu_binary_tools_impl::pdu_binary_tools_impl(uint8_t mode)
         GR_LOG_DEBUG(d_logger, "pdu binary tools in BIT FLIP mode");
         set_msg_handler(
             PMTCONSTSTR__pdu_in(),
-            boost::bind(&pdu_binary_tools_impl::handle_msg_bit_flip, this, _1));
+            boost::bind(&pdu_binary_tools_impl::handle_msg_bit_flip, this, std::placeholders::_1));
         break;
     }
     case pdu_binary_tools::TO_NRZ: {
         GR_LOG_DEBUG(d_logger, "pdu binary tools in TO NRZ mode");
         set_msg_handler(PMTCONSTSTR__pdu_in(),
-                        boost::bind(&pdu_binary_tools_impl::handle_msg_to_nrz, this, _1));
+                        boost::bind(&pdu_binary_tools_impl::handle_msg_to_nrz, this, std::placeholders::_1));
         break;
     }
     case pdu_binary_tools::FROM_NRZ: {
         GR_LOG_DEBUG(d_logger, "pdu binary tools in FROM NRZ mode");
         set_msg_handler(
             PMTCONSTSTR__pdu_in(),
-            boost::bind(&pdu_binary_tools_impl::handle_msg_from_nrz, this, _1));
+            boost::bind(&pdu_binary_tools_impl::handle_msg_from_nrz, this, std::placeholders::_1));
         break;
     }
     case pdu_binary_tools::SLICE: {
         GR_LOG_DEBUG(d_logger, "pdu binary tools in SLICE mode");
         set_msg_handler(PMTCONSTSTR__pdu_in(),
-                        boost::bind(&pdu_binary_tools_impl::handle_msg_slice, this, _1));
+                        boost::bind(&pdu_binary_tools_impl::handle_msg_slice, this, std::placeholders::_1));
         break;
     }
     case pdu_binary_tools::ENDIAN_SWAP8: {
         GR_LOG_DEBUG(d_logger, "pdu binary tools in ENDIAN_SWAP8 mode");
         set_msg_handler(
             PMTCONSTSTR__pdu_in(),
-            boost::bind(&pdu_binary_tools_impl::handle_msg_endian8, this, _1));
+            boost::bind(&pdu_binary_tools_impl::handle_msg_endian8, this, std::placeholders::_1));
         break;
     }
     case pdu_binary_tools::MANCHESTER_ENCODE: {
         GR_LOG_DEBUG(d_logger, "pdu binary tools in MANCHESTER_ENCODE mode");
         set_msg_handler(
             PMTCONSTSTR__pdu_in(),
-            boost::bind(&pdu_binary_tools_impl::handle_msg_manchester_encode, this, _1));
+            boost::bind(&pdu_binary_tools_impl::handle_msg_manchester_encode, this, std::placeholders::_1));
         break;
     }
     case pdu_binary_tools::MANCHESTER_DECODE: {
         GR_LOG_DEBUG(d_logger, "pdu binary tools in MANCHESTER_DECODE mode");
         set_msg_handler(
             PMTCONSTSTR__pdu_in(),
-            boost::bind(&pdu_binary_tools_impl::handle_msg_manchester_decode, this, _1));
+            boost::bind(&pdu_binary_tools_impl::handle_msg_manchester_decode, this, std::placeholders::_1));
         break;
     }
     default: {
         set_msg_handler(
             PMTCONSTSTR__pdu_in(),
-            boost::bind(&pdu_binary_tools_impl::handle_msg_passthrough, this, _1));
+            boost::bind(&pdu_binary_tools_impl::handle_msg_passthrough, this, std::placeholders::_1));
     }
     }
 }

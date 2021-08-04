@@ -13,6 +13,7 @@
 
 #include "msg_drop_random_impl.h"
 #include <gnuradio/io_signature.h>
+#include <functional>
 
 namespace gr {
 namespace pdu_utils {
@@ -36,7 +37,7 @@ msg_drop_random_impl::msg_drop_random_impl(float p_drop, uint64_t seed)
 {
     message_port_register_in(PMTCONSTSTR__pdu_in());
     set_msg_handler(PMTCONSTSTR__pdu_in(),
-                    boost::bind(&msg_drop_random_impl::handle_msg, this, _1));
+                    boost::bind(&msg_drop_random_impl::handle_msg, this, std::placeholders::_1));
     message_port_register_out(PMTCONSTSTR__pdu_out());
 }
 

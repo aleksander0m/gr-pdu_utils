@@ -13,6 +13,7 @@
 
 #include "pack_unpack_impl.h"
 #include <gnuradio/io_signature.h>
+#include <functional>
 
 namespace gr {
 namespace pdu_utils {
@@ -32,7 +33,7 @@ pack_unpack_impl::pack_unpack_impl(uint32_t mode, uint32_t bit_order)
 {
     message_port_register_in(PMTCONSTSTR__pdu_in());
     set_msg_handler(PMTCONSTSTR__pdu_in(),
-                    boost::bind(&pack_unpack_impl::handle_msg, this, _1));
+                    boost::bind(&pack_unpack_impl::handle_msg, this, std::placeholders::_1));
     message_port_register_out(PMTCONSTSTR__pdu_out());
 
     if (d_mode == MODE_UNPACK_BYTE) {

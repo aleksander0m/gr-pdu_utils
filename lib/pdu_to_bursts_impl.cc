@@ -16,6 +16,7 @@
 
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/thread/thread.hpp>
+#include <functional>
 
 namespace gr {
 namespace pdu_utils {
@@ -77,7 +78,7 @@ pdu_to_bursts_impl<T>::pdu_to_bursts_impl(uint32_t early_burst_behavior,
 
     this->message_port_register_in(PMTCONSTSTR__bursts());
     this->set_msg_handler(PMTCONSTSTR__bursts(),
-                          boost::bind(&pdu_to_bursts_impl<T>::store_pdu, this, _1));
+                          boost::bind(&pdu_to_bursts_impl<T>::store_pdu, this, std::placeholders::_1));
 }
 
 /*

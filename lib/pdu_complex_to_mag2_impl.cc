@@ -13,6 +13,7 @@
 
 #include "pdu_complex_to_mag2_impl.h"
 #include <gnuradio/io_signature.h>
+#include <functional>
 
 #include <volk/volk.h>
 
@@ -35,7 +36,7 @@ pdu_complex_to_mag2_impl::pdu_complex_to_mag2_impl()
     message_port_register_in(PMTCONSTSTR__cpdus());
     message_port_register_out(PMTCONSTSTR__fpdus());
     set_msg_handler(PMTCONSTSTR__cpdus(),
-                    boost::bind(&pdu_complex_to_mag2_impl::handle_pdu, this, _1));
+                    boost::bind(&pdu_complex_to_mag2_impl::handle_pdu, this, std::placeholders::_1));
 }
 
 /*

@@ -13,6 +13,7 @@
 
 #include "tags_to_pdu_impl.h"
 #include <gnuradio/io_signature.h>
+#include <functional>
 
 namespace gr {
 namespace pdu_utils {
@@ -82,7 +83,7 @@ tags_to_pdu_impl<T>::tags_to_pdu_impl(pmt::pmt_t start_tag,
 
     this->message_port_register_in(PMTCONSTSTR__conf());
     this->set_msg_handler(PMTCONSTSTR__conf(),
-                          boost::bind(&tags_to_pdu_impl<T>::handle_ctrl_msg, this, _1));
+                          boost::bind(&tags_to_pdu_impl<T>::handle_ctrl_msg, this, std::placeholders::_1));
     this->message_port_register_out(PMTCONSTSTR__pdu_out());
     this->message_port_register_out(PMTCONSTSTR__detects());
 }
